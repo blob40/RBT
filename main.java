@@ -22,13 +22,5 @@ public class main {
 		System.out.println("Shortest True Path: " + rbt.shortestTruePath());
 		System.out.println("True Height diff: " + rbt.trueHeightDiff());
 		rbt.printTree();
-
-		
-		
-		rbt.delete(3);
-		System.out.println("AD Is RedBlack Tree: " + rbt.isRedBlack());
-		System.out.println("AD Shortest True Path: " + rbt.shortestTruePath());
-		System.out.println("AD True Height diff: " + rbt.trueHeightDiff());
-		rbt.printTree();
 	}
 }
