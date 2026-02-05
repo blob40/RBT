@@ -14,6 +14,9 @@ public class main {
 		rbt.insert(10);
 		rbt.insert(2);
 		rbt.insert(1);
+		//rbt.root.color = RedBlackTree.RED; 
+		//rbt.root.left.color = RedBlackTree.RED; 
+		//rbt.root.left.right.color = RedBlackTree.BLACK; 
 
 		System.out.println("Is RedBlack Tree: " + rbt.isRedBlack());
 		System.out.println("Shortest True Path: " + rbt.shortestTruePath());

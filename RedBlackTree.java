@@ -9,7 +9,7 @@ public class RedBlackTree {
 
   static final boolean RED = false;
   static final boolean BLACK = true;
-  private Node root;
+   Node root;
   private NilNode terminator = new NilNode();
 
   public Node search(int key) {
@@ -405,7 +405,7 @@ public class RedBlackTree {
 
   private void printTree(Node root, Trunk prev, boolean isLeft) {
     if (root == null) {
-      System.out.println(" " + "NIL " + "B");
+    // System.out.println(" " + "NIL " + "B");
       return;
     }
 
