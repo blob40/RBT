@@ -1,6 +1,10 @@
 //The following is one possible RedBlackTree implementation.
 //Much of this code is from Sven Woltmann's public GitHub repository. Thank you Mr. Woltmann for making your code available for educational purposes.
 
+  //Name: Alex Krouse
+  //Date: 2/4/26
+  //RBT method implementations to make sure it is a RBT, to find the shortest path, and to find the true height difference of the tree
+
 public class RedBlackTree {
 
   static final boolean RED = false;
@@ -445,10 +449,19 @@ public class RedBlackTree {
   // not assume anything based on the above implementation (which does ensure all
   // these rules are followed)
   // you may wish to add some helper functions here.
+
+
+
+  //Name: Alex Krouse
+  //Date: 2/4/26
+  //RBT method implementations to make sure it is a RBT, to find the shortest path, and to find the true height difference of the tree
+
+  //Precondition: tree is not empty
+  //postcondition: returns true if tree satisfies all rbt rules false otherwise
   public boolean isRedBlack() {
 
     // Making sure root is black
-    if (root.color != BLACK) {
+    if (root == null || root.color != BLACK) {
       return false;
     }
 
@@ -464,6 +477,9 @@ public class RedBlackTree {
     return true;
   }
 
+
+  //precondition: node is not null
+  //postcondition: returns true if red nodes have black children false otherwise
   private boolean checkRC(Node node) {
     if (node == null) {
       return true;
@@ -473,42 +489,84 @@ public class RedBlackTree {
       if ((node.left != null && node.left.color == RED) || (node.right != null && node.right.color == RED)) {
         return false;
       }
-      if ((node.right != null && node.right.color == RED) || (node.left != null && node.left.color == RED)) {
-        return false;
-      }
     }
 
     return checkRC(node.left) && checkRC(node.right);
   }
 
+
+  //precondition: node is not null
+  //postcondition: returns the black height of the node if it is a valid RBT
   private int checkHeight(Node node) {
     if (node == null) {
-      return 0;
+      return 1;
     }
 
     int countR = checkHeight(node.right);
     int countL = checkHeight(node.left);
-    if (countL - countR != 0) {
+    if (countL == -1 || countR == -1|| countL != countR ) {
       return -1;
     }
-    if (node.color == BLACK) {
-      return countR + 1;
+    
+  if (node.color == BLACK) {
+      return countL + 1;
     } else {
-      return countR;
+    return countL;
     }
   }
 
   // This should return a string of comma separated keys that represents the
   // shortest height path through the tree.
   // Perhaps this would be easier to do with some helper functions?
+
+  //Precondition: tree may be empty
+  //postcondition: returns a string of comma separated keys that represents the shortest height path through
   public String shortestTruePath() {
-    return "";
+    if (root == null) {
+      return "";
+    }
+    return shortestTruePathHelper(root);
   }
 
+  //precondition: node is not null
+  //postcondition: returns a string of comma separated keys that represents the shortest height path through node
+  private String shortestTruePathHelper(Node node) {
+    if (node == null) {
+      return "";
+    }
+    if (node.left == null && node.right == null) {
+      return Integer.toString(node.key);
+    }
+    int heightL = height(node.left);
+    int heightR = height(node.right);
+    // prefer left when equal heights
+    if (heightL <= heightR) {
+      return node.key + "," + shortestTruePathHelper(node.left);
+    } else {
+      return node.key + "," + shortestTruePathHelper(node.right);
+    }
+  }
 
+  //precondition: node is not null
+  //postcondition: returns the height of the node
+   private int height(Node node){
+        if (node == null){
+            return -1;
+        } else {
+            if (height(node.left)>height(node.right)){
+            return height(node.left) + 1; } else {
+                return height (node.right) +1;
+            }
+        }
+    }
   // This returns the absolute value of the difference between the real height of
   // the tree and its black height.
+
+  //precondition: tree is not empty
+  //postcondition: returns the absolute value of the difference between the real height of the tree and its black height
   public int trueHeightDiff() {
-    return 0;
+    int realHeight = height(root);
+    int bHeight =checkHeight(root);
+    return Math.abs(realHeight - bHeight);
   }
 }
